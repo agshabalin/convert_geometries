@@ -10,8 +10,8 @@ Class to run PolyXSim.
 import os, subprocess
 import numpy as np
 from datetime import datetime
-from Geometry import Geometry
-from Grain import Grain
+# from Geometry import Geometry
+# from Grain import Grain
 single_separator = "--------------------------------------------------------------\n"
 double_separator = "==============================================================\n"
         
