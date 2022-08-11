@@ -403,38 +403,3 @@ class PolySim:
         f.close()
         self.add_to_log('File closed!', False)
         return
-    
-    
-    def run_PolyXsim(self, directory = None, inp_file = None):
-        if directory: self.set_attr('directory', directory)
-        if inp_file:
-            self.set_attr('inp_file', inp_file)
-            self.load_inp()
-
-        del_old  = subprocess.call('rm '+self.direc+self.stem+'*', shell=True)
-        if del_old > 0: self.add_to_log(f"Deleted old files.", True)           
-        self.save_inp(overwrite = True)
-
-        command = 'PolyXSim.py -i ' + self.directory+self.inp_file
-        self.add_to_log(f'Running: '+command, True)
-        process = subprocess.run(command.split(), check=True,
-                                 stdout=subprocess.PIPE, universal_newlines=True)
-        self.add_to_log('Output:'+process.stdout, False)
-        print('Last line in the output:'+process.stdout.splitlines()[-1])
-        if 'show this help message and exit' in process.stdout.splitlines()[-1]:
-            raise ChildProcessError('PolyXsim failed to run!')
-        
-        # Corection for geometry bug in PolyXSim
-        subprocess.call('cp '+self.direc+self.stem+'.par '+self.direc+self.stem+'_PolyXSim.par ', shell=True)
-        GM = Geometry()
-        if self.direc[0:2] == './':
-            GM.load_par(directory = self.directory + self.direc[2:], par_file = self.stem + '.par')
-        else:
-            GM.load_par(directory = self.direc, par_file = self.stem + '.par')
-        self.geometry.print()
-        self.geometry.set_attr('symmetry', GM.symmetry)
-        self.geometry.set_attr('chi', GM.chi)
-        self.geometry.set_attr('fit_tolerance', GM.fit_tolerance)
-        self.geometry.set_attr('wedge', GM.wedge)
-        self.geometry.save_par(directory = GM.directory, par_file = self.stem + '.par', overwrite = True)
-        return
