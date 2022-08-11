@@ -7,7 +7,7 @@ Created on Wed Feb 11 11:00:00 2022
 Class to work with a grain object. Loads .log  files.
 """
 
-import sys, os, subprocess, pdb, re
+import sys, os
 import numpy as np
 from numpy import float32
 from datetime import datetime
