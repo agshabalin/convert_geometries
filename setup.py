@@ -6,5 +6,5 @@ setup(
     packages=['convert_geometries',],
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.md').read(),
-    install_requires=['scipy']
+    install_requires=['scipy', 'pyyaml']
 )
