@@ -7,6 +7,7 @@ This utility converts geometry parameters between conventions of HEXRD, ImageD11
 
 import sys, os
 import numpy as np
+
 #from . import Geometry
 #from Grain import Grain
 #from PolySim import PolySim
